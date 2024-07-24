@@ -6,6 +6,8 @@ import org.example.model.repository.ClienteRepository;
 import org.example.model.repository.ServicoPrestadoRepository;
 import org.example.rest.dto.ServicoPrestadoDTO;
 import org.example.util.BigDecimalConverter;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -13,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/servico-prestados")
@@ -44,5 +47,10 @@ public class ServicoPrestadoController {
 
         return servicoPrestadoRepository.save(servicoPrestado);
 
+    }
+
+    @GetMapping("buscar")
+    public List<ServicoPrestado> pesquisar(@RequestParam(value = "nome", required = false, defaultValue = "") String nome, @RequestParam(value = "mes",required = false) Integer mes){
+        return servicoPrestadoRepository.findByNomeClienteAndMes("%"+nome+"%",mes);
     }
 }
