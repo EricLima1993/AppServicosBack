@@ -6,20 +6,17 @@ import org.example.model.repository.ClienteRepository;
 import org.example.model.repository.ServicoPrestadoRepository;
 import org.example.rest.dto.ServicoPrestadoDTO;
 import org.example.util.BigDecimalConverter;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.math.BigDecimal;
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/servico-prestados")
-@CrossOrigin("http://localhost:4200")
 public class ServicoPrestadoController {
 
     private final ClienteRepository clienteRepository;
@@ -34,7 +31,7 @@ public class ServicoPrestadoController {
 
     @PostMapping("criar")
     @ResponseStatus(HttpStatus.CREATED)
-    public ServicoPrestado salvar(@RequestBody ServicoPrestadoDTO dto){
+    public ServicoPrestado salvar(@RequestBody @Valid ServicoPrestadoDTO dto){
         LocalDate data = LocalDate.parse(dto.getData(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
         Cliente cliente = clienteRepository.findById(dto.getIdCliente()).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cliente inexistente."));
