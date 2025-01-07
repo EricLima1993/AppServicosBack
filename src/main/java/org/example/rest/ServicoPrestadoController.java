@@ -48,6 +48,10 @@ public class ServicoPrestadoController {
 
     @GetMapping("buscar")
     public List<ServicoPrestado> pesquisar(@RequestParam(value = "nome", required = false, defaultValue = "") String nome, @RequestParam(value = "mes",required = false) Integer mes){
-        return servicoPrestadoRepository.findByNomeClienteAndMes("%"+nome+"%",mes);
+        if(mes == null){
+            return servicoPrestadoRepository.findByNomeCliente("%"+nome+"%");
+        }else{
+            return servicoPrestadoRepository.findByNomeClienteAndMes("%"+nome+"%",mes);
+        }
     }
 }
