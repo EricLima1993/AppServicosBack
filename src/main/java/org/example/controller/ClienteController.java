@@ -1,51 +1,50 @@
-package org.example.rest;
+package org.example.controller;
 
-import org.example.model.entity.Cliente;
-import org.example.model.repository.ClienteRepository;
+import jakarta.validation.Valid;
+import org.example.model.Cliente;
+import org.example.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/clientes")
 public class ClienteController {
 
-    private final ClienteRepository repository;
+    private final ClienteService clienteService;
 
     @Autowired
-    public ClienteController(ClienteRepository repository){
-        this.repository = repository;
+    public ClienteController(ClienteService clienteService){
+        this.clienteService = clienteService;
     }
 
     @GetMapping("buscar")
     public List<Cliente> getClientes(){
-        return repository.findAll();
+        return clienteService.getClientes();
     }
 
     @PostMapping("criar")
     @ResponseStatus(HttpStatus.CREATED)
     public Cliente salvar(@RequestBody @Valid Cliente cliente){
-        return repository.save(cliente);
+        return clienteService.salvar(cliente);
     }
 
     @GetMapping("buscar/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Cliente acharPorId(@PathVariable Integer id){
-        return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
+        return clienteService.acharPorId(id);
     }
 
     @DeleteMapping("deletar/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletar(@PathVariable Integer id){
-        repository.findById(id).map(cliente -> {  repository.delete(cliente); return Void.TYPE;}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        clienteService.deletar(id);
     }
     @PutMapping("atualizar/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void atualizar(@PathVariable Integer id,@RequestBody @Valid Cliente clienteAtualizado){
-        repository.findById(id).map(cliente -> {  clienteAtualizado.setId(cliente.getId()); return repository.save(clienteAtualizado);}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        clienteService.atualizar(id, clienteAtualizado);
     }
 }

@@ -1,6 +1,6 @@
-package org.example.model.repository;
+package org.example.repository;
 
-import org.example.model.entity.ServicoPrestado;
+import org.example.model.ServicoPrestado;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

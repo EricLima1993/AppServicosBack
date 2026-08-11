@@ -2,6 +2,7 @@ package org.example.rest;
 
 import org.example.rest.exception.ApiErrors;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -28,7 +29,7 @@ public class ApplicationControllerAdvice {
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity handleResponseStatusException(ResponseStatusException ex){
         String mensagemErro = ex.getMessage();
-        HttpStatus codigoStatus = ex.getStatus();
+        HttpStatusCode codigoStatus = ex.getStatusCode();
         ApiErrors apiErrors = new ApiErrors(mensagemErro);
         return new ResponseEntity(apiErrors,codigoStatus);
     }
