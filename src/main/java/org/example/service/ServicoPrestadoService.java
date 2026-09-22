@@ -1,8 +1,8 @@
 package org.example.service;
 
 import org.example.controller.dto.ServicoPrestadoDTO;
-import org.example.model.Cliente;
-import org.example.model.ServicoPrestado;
+import org.example.model.entity.Cliente;
+import org.example.model.entity.ServicoPrestado;
 import org.example.repository.ClienteRepository;
 import org.example.repository.ServicoPrestadoRepository;
 import org.example.util.BigDecimalConverter;

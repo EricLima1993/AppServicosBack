@@ -1,7 +1,7 @@
 package org.example.controller;
 
 import jakarta.validation.Valid;
-import org.example.model.ServicoPrestado;
+import org.example.model.entity.ServicoPrestado;
 import org.example.controller.dto.ServicoPrestadoDTO;
 import org.example.service.ServicoPrestadoService;
 import org.springframework.http.HttpStatus;

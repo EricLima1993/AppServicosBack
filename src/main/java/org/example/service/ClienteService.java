@@ -1,6 +1,6 @@
 package org.example.service;
 
-import org.example.model.Cliente;
+import org.example.model.entity.Cliente;
 import org.example.repository.ClienteRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
